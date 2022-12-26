@@ -101,3 +101,35 @@ func insertItem(ctx context.Context, createTodo CreateTodo) (*Todo, error) {
 
 	return &todo, nil
 }
+
+func deleteItem(ctx context.Context, id string) (*Todo, error) {
+	key, err := attributevalue.Marshal(id)
+	if err != nil {
+		return nil, err
+	}
+
+	input := &dynamodb.DeleteItemInput{
+		TableName: aws.String(TableName),
+		Key: map[string]types.AttributeValue{
+			"id": key,
+		},
+		ReturnValues: types.ReturnValue(*aws.String("ALL_OLD")),
+	}
+
+	res, err := db.DeleteItem(ctx, input)
+	if err != nil {
+		return nil, err
+	}
+
+	if res.Attributes == nil {
+		return nil, nil
+	}
+
+	todo := new(Todo)
+	err = attributevalue.UnmarshalMap(res.Attributes, todo)
+	if err != nil {
+		return nil, err
+	}
+
+	return todo, nil
+}

@@ -38,8 +38,6 @@ Resources:
           Properties:
             Path: /todo/{id}
             Method: PUT
-    Metadata:
-      BuildMethod: makefile
 
   TodoTable:
     Type: AWS::DynamoDB::Table

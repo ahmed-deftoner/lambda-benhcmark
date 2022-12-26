@@ -1,0 +1,10 @@
+config:
+  target: "https://le0an7uz57.execute-api.ap-south-1.amazonaws.com/Stage"
+  phases:
+    - duration: 10
+      arrivalRate: 50
+
+scenarios:
+  - flow:
+      - get:
+          url: "/todo"

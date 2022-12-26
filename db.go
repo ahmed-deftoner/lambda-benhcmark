@@ -69,11 +69,6 @@ func getItem(ctx context.Context, id string) (*Todo, error) {
 	return todo, nil
 }
 
-type CreateTodo struct {
-	Name        string `json:"name" validate:"required"`
-	Description string `json:"description" validate:"required"`
-}
-
 func insertItem(ctx context.Context, createTodo CreateTodo) (*Todo, error) {
 	todo := Todo{
 		Name:        createTodo.Name,
@@ -135,12 +130,6 @@ func deleteItem(ctx context.Context, id string) (*Todo, error) {
 	}
 
 	return todo, nil
-}
-
-type UpdateTodo struct {
-	Name        string `json:"name" validate:"required"`
-	Description string `json:"description" validate:"required"`
-	Status      bool   `json:"status" validate:"required"`
 }
 
 func updateItem(ctx context.Context, id string, updateTodo UpdateTodo) (*Todo, error) {
